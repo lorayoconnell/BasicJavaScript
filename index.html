@@ -3,9 +3,13 @@
 <head>
 
 <style>
-    #rootContainer {
-        display: flex;
-    }
+
+    /*#rootContainer, #btnContainer, #companyNamesContainer, #cleanContainer, #reverseContainer {
+        display:flex;
+    }*/
+
+    div {display:flex;}
+
     .root-container {
         position: relative;
     }
@@ -38,12 +42,36 @@
         background-image: gold;
     }
 
+
+    .verticalRoot {
+        flex-wrap:wrap;
+    }
+
+    .horizontalRoot {
+
+    }
+
+
+
+    .horizontalBtn {
+        width:100%;
+    }
+    .verticalBtn {
+        width:20%;
+        flex-wrap:wrap;
+    }
+    .verticalBtn > div {
+        width:100%;
+    }
+
+
+
     .horizontalList {
-        display: flex; flex-direction: row;
+        flex-direction: row; background-color: pink;
     }
 
     .verticalList {
-        display:flex; flex-direction: column;
+        flex-direction: column; background-color: yellow;
     }    
 
     .verticalList div {
@@ -51,17 +79,20 @@
     }
 
     #rootContainer {
-        flex-wrap: wrap;
+        
     }
 
     #btnContainer {
-        display:flex;
-        width:100%;
+        
     }
 
 /* temp outlines */
 
-#btnContainer{outline:1px solid red;}
+#rootContainer{outline:1px solid blue;}
+#btnContainer{background-color:red;}
+#companyNamesContainer{outline:1px solid orange;}
+#cleanContainer{outline:1px solid cyan;}
+#reverseContainer{outline:1px solid green;}
 
 </style>
 
@@ -104,9 +135,10 @@
         clearDocument();
         var rootDiv = document.createElement('div');
         rootDiv.id = 'rootContainer';
+        rootDiv.classList.add("verticalRoot");
         var btnContainer = document.createElement('div');
         btnContainer.id = 'btnContainer';
-        btnContainer.classList.add("horizontalList");
+        btnContainer.classList.add("horizontalBtn");
         rootDiv.appendChild(btnContainer);
         document.body.appendChild(rootDiv);
     }
@@ -278,26 +310,30 @@
         var cleanContainer = document.getElementById('cleanContainer');
         var reverseContainer = document.getElementById('reverseContainer');
 
-        if (btnContainer.classList.contains("horizontalList")) {
-            btnContainer.classList.remove("horizontalList");
-            btnContainer.classList.add("verticalList");
-            companyNamesContainer.classList.remove("verticalList");
-            companyNamesContainer.classList.add("horizontalList");
-            reverseContainer.classList.remove("verticalList");
-            reverseContainer.classList.add("horizontalList");
-            cleanContainer.classList.remove("verticalList");
-            cleanContainer.classList.add("horizontalList");
+        if (btnContainer.classList.contains("horizontalBtn")) {
+
+            btnContainer.classList.remove("horizontalBtn");
+            btnContainer.classList.add("verticalBtn");
+
+        //    companyNamesContainer.classList.remove("verticalList");
+        //    companyNamesContainer.classList.add("horizontalList");
+        //    reverseContainer.classList.remove("verticalList");
+        //    reverseContainer.classList.add("horizontalList");
+        //    cleanContainer.classList.remove("verticalList");
+        //    cleanContainer.classList.add("horizontalList");
         }
 
-        else if (btnContainer.classList.contains("verticalList")) {
-            btnContainer.classList.remove("verticalList");
-            btnContainer.classList.add("horizontalList");
-            companyNamesContainer.classList.remove("horizontalList");
-            companyNamesContainer.classList.add("verticalList");
-            reverseContainer.classList.remove("horizontalList");
-            reverseContainer.classList.add("verticalList");
-            cleanContainer.classList.remove("horizontalList");
-            cleanContainer.classList.add("verticalList");
+        else if (btnContainer.classList.contains("verticalBtn")) {
+
+            btnContainer.classList.remove("verticalBtn");
+            btnContainer.classList.add("horizontalBtn");
+
+        //    companyNamesContainer.classList.remove("horizontalList");
+        //    companyNamesContainer.classList.add("verticalList");
+        //    reverseContainer.classList.remove("horizontalList");
+        //    reverseContainer.classList.add("verticalList");
+        //    cleanContainer.classList.remove("horizontalList");
+        //    cleanContainer.classList.add("verticalList");
         }
 
 
