@@ -220,11 +220,39 @@
 
     function cleanAndCountCharacters() {
         console.log('CLEAN AND COUNT CHARACTERS');
+        var cleanCountStartups = [];
         /*
             TODO: REMOVES ANY SPECIAL CHARACTERS FROM EACH COMPANY NAME AND
               DISPLAYS THE NUMBER OF REMAINING CHARACTERS NEXT TO THE FULL WORD.
               DONT FORGET TO REMOVE LEADING AND TRAILING WHITESPACES AS WELL
         */
+
+        chicagoStartups.forEach(function(element, index) {
+
+            var regExPattern = /[^a-zA-Z\s]/g;
+
+            // remove whitespace before and after element
+            // replace multiple instances of whitespace with single whitespace
+            element = element.trim().replace(/\s{2,}/g, ' ');
+
+            if (element.match(regExPattern) != null) {
+                element = element.replace(regExPattern,"").trim();
+            }
+
+            element = element + " (" + element.length + ")";
+            cleanCountStartups.push(element);
+        });
+
+        var cleanContainer = document.getElementById("cleanContainer");
+
+        cleanCountStartups.forEach(function(element, index) {
+            var txtDiv = document.createElement('div');
+            var txt = document.createTextNode(element);
+            txtDiv.appendChild(txt);
+            cleanContainer.appendChild(txtDiv);
+        });
+
+        // disable 'clean and count words' button after clicked? no reason to click twice
 
     }
     
