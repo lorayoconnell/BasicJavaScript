@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
 <style>
 
-    /*#rootContainer, #btnContainer, #companyNamesContainer, #cleanContainer, #reverseContainer {
-        display:flex;
-    }*/
+    body{
+        font-family: Helvetica;
+        padding: 2em;
+    }
 
-    div {display:flex;}
+    div {
+        display:flex; position:relative;
+    }
+
+    button {
+        font-size:22px;
+        min-width:170px;
+        padding:0.25em 0.5em;
+        margin:0.25em;
+    }
+    button:hover {
+        cursor: pointer;
+    }
 
     .root-container {
         position: relative;
@@ -42,64 +55,65 @@
         background-image: gold;
     }
 
+    #rootContainer{
+        border:1px solid #555;
+        border-radius: 8px;
+        padding:1em;
+    }
+
+    #btnContainer{padding:0.5em;}
+    #listContainer{padding:0.5em;}
+    #companyNamesContainer{padding:.2em;}
+    #cleanContainer{padding:.2em;}
+    #reverseContainer{padding:.2em;}
 
     .verticalRoot {
-        flex-wrap:wrap;
+        flex-direction: column;
     }
 
     .horizontalRoot {
-
+        flex-direction: row;
     }
 
-
-
-    .horizontalBtn {
+    .horizontalBtn {flex-direction: row;
         width:100%;
     }
-    .verticalBtn {
+    .verticalBtn {flex-direction: column;
         width:20%;
-        flex-wrap:wrap;
+    } 
+
+
+    .verticalListContainer {
+        flex-direction: row;
     }
-    .verticalBtn > div {
+    .verticalListContainer > div {
+        flex-wrap:wrap;
+        margin:0.4em;
+    }
+    .verticalListContainer > div > div {
         width:100%;
     }
 
-
-
-    .horizontalList {
-        flex-direction: row; background-color: pink;
+    .horizontalListContainer {
+        flex-direction: column;
+    }
+    .horizontalListContainer > div {
+        flex-wrap:wrap;
+        margin:0.4em;
+    }
+    .horizontalListContainer > div > div {
+        flex-wrap:nowrap;
+        margin:0 0.4em;
     }
 
-    .verticalList {
-        flex-direction: column; background-color: yellow;
-    }    
 
-    .verticalList div {
-        display:flex;
-    }
-
-    #rootContainer {
-        
-    }
-
-    #btnContainer {
-        
-    }
-
-/* temp outlines */
-
-#rootContainer{outline:1px solid blue;}
-#btnContainer{background-color:red;}
-#companyNamesContainer{outline:1px solid orange;}
-#cleanContainer{outline:1px solid cyan;}
-#reverseContainer{outline:1px solid green;}
 
 </style>
 
 </head>
 <body>
 
-    <h3>Javascript Basics</h3>
+    <h1>Javascript Basics</h1>
 
 <script>
     var colors = ['red', 'blue', 'gold'];
@@ -131,15 +145,23 @@
         }
     }
 
+
     function initDocument() {
         clearDocument();
         var rootDiv = document.createElement('div');
         rootDiv.id = 'rootContainer';
         rootDiv.classList.add("verticalRoot");
+        
         var btnContainer = document.createElement('div');
         btnContainer.id = 'btnContainer';
         btnContainer.classList.add("horizontalBtn");
         rootDiv.appendChild(btnContainer);
+
+        var listContainer = document.createElement('div');
+        listContainer.id = 'listContainer';
+        listContainer.classList.add("verticalListContainer");
+        rootDiv.appendChild(listContainer);
+
         document.body.appendChild(rootDiv);
     }
 
@@ -149,11 +171,11 @@
         companyNamesContainer.classList.add("verticalList");
         chicagoStartups.forEach( function(chicagoStartup, index) {
             var childDiv = document.createElement('div');
-            var text = document.createTextNode(index.toString().concat(' .) ').concat(chicagoStartup));
+            var text = document.createTextNode(index.toString().concat(') ').concat(chicagoStartup));
             childDiv.appendChild(text);
             companyNamesContainer.appendChild(childDiv);
         });
-        document.getElementById('rootContainer').appendChild(companyNamesContainer);
+        document.getElementById('listContainer').appendChild(companyNamesContainer);
     }
 
     function initToggleDisplay() {
@@ -178,7 +200,7 @@
         var reverseButtonContainer = document.createElement('div');
         reverseButtonContainer.appendChild(reverseBtn);    
         document.getElementById('btnContainer').appendChild(reverseButtonContainer);
-        document.getElementById('rootContainer').appendChild(reverseContainer);
+        document.getElementById('listContainer').appendChild(reverseContainer);
     }
 
     function initCleanCount() {
@@ -186,13 +208,14 @@
         cleanContainer.id = 'cleanContainer';
         cleanContainer.classList.add("verticalList");
         var cleanCountButton = document.createElement('button');
-        var cleanCountBtnText = document.createTextNode('Clean and Count Words');
+        cleanCountButton.id = 'cleanCountButtonId';
+        var cleanCountBtnText = document.createTextNode('Clean and Count');
         cleanCountButton.onclick = cleanAndCountCharacters;
         cleanCountButton.appendChild(cleanCountBtnText);
         var cleanCountBtnContainer = document.createElement('div');
         cleanCountBtnContainer.appendChild(cleanCountButton);
         document.getElementById('btnContainer').appendChild(cleanCountBtnContainer);
-        document.getElementById('rootContainer').appendChild(cleanContainer);
+        document.getElementById('listContainer').appendChild(cleanContainer);
     }
 
 
@@ -259,17 +282,13 @@
         */
 
         chicagoStartups.forEach(function(element, index) {
-
             var regExPattern = /[^a-zA-Z\s]/g;
-
             // remove whitespace before and after element
             // replace multiple instances of whitespace with single whitespace
             element = element.trim().replace(/\s{2,}/g, ' ');
-
             if (element.match(regExPattern) != null) {
                 element = element.replace(regExPattern,"").trim();
             }
-
             element = element + " (" + element.length + ")";
             cleanCountStartups.push(element);
         });
@@ -283,11 +302,10 @@
             cleanContainer.appendChild(txtDiv);
         });
 
-        // disable 'clean and count words' button after clicked? no reason to click twice
-
+        // disable 'clean and count words' button after clicked. no reason to click twice
+        document.getElementById('cleanCountButtonId').disabled = true;
     }
     
-
     function toggleDisplay() {
         /*
         TODO: REVIEW THE CODE IN THE PROVIDED REVERSE EXAMPLE, USE JAVASCRIPT TO ADD A CLICKABLE BUTTON 
@@ -303,9 +321,9 @@
 
             3.  
         */
-
+        var rootContainer = document.getElementById('rootContainer');
         var btnContainer = document.getElementById('btnContainer');
-
+        var listContainer = document.getElementById('listContainer');
         var companyNamesContainer = document.getElementById('companyNamesContainer');
         var cleanContainer = document.getElementById('cleanContainer');
         var reverseContainer = document.getElementById('reverseContainer');
@@ -315,32 +333,25 @@
             btnContainer.classList.remove("horizontalBtn");
             btnContainer.classList.add("verticalBtn");
 
-        //    companyNamesContainer.classList.remove("verticalList");
-        //    companyNamesContainer.classList.add("horizontalList");
-        //    reverseContainer.classList.remove("verticalList");
-        //    reverseContainer.classList.add("horizontalList");
-        //    cleanContainer.classList.remove("verticalList");
-        //    cleanContainer.classList.add("horizontalList");
-        }
+            rootContainer.classList.remove("verticalRoot");
+            rootContainer.classList.add("horizontalRoot");
 
+            listContainer.classList.remove("verticalListContainer");
+            listContainer.classList.add("horizontalListContainer");       
+        }
         else if (btnContainer.classList.contains("verticalBtn")) {
 
             btnContainer.classList.remove("verticalBtn");
             btnContainer.classList.add("horizontalBtn");
 
-        //    companyNamesContainer.classList.remove("horizontalList");
-        //    companyNamesContainer.classList.add("verticalList");
-        //    reverseContainer.classList.remove("horizontalList");
-        //    reverseContainer.classList.add("verticalList");
-        //    cleanContainer.classList.remove("horizontalList");
-        //    cleanContainer.classList.add("verticalList");
+            rootContainer.classList.remove("horizontalRoot");
+            rootContainer.classList.add("verticalRoot");
+
+            listContainer.classList.remove("horizontalListContainer");
+            listContainer.classList.add("verticalListContainer");      
         }
-
-
     }
     
-
-
 
     function run() {
         initDocument();
