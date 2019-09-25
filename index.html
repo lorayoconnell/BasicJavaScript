@@ -5,7 +5,6 @@
 <style>
     #rootContainer {
         display: flex;
-
     }
     .root-container {
         position: relative;
@@ -38,17 +37,38 @@
     .gold {
         background-image: gold;
     }
+
+    .horizontalList {
+        display: flex; flex-direction: row;
+    }
+
+    .verticalList {
+        display:flex; flex-direction: column;
+    }    
+
+    .verticalList div {
+        display:flex;
+    }
+
+    #rootContainer {
+        flex-wrap: wrap;
+    }
+
+    #btnContainer {
+        display:flex;
+        width:100%;
+    }
+
+/* temp outlines */
+
+#btnContainer{outline:1px solid red;}
+
 </style>
 
 </head>
 <body>
 
     <h3>Javascript Basics</h3>
-    <button onclick="cleanAndCountCharacters()">
-        clean and count words
-    </button>
-
-
 
 <script>
     var colors = ['red', 'blue', 'gold'];
@@ -84,16 +104,67 @@
         clearDocument();
         var rootDiv = document.createElement('div');
         rootDiv.id = 'rootContainer';
+        var btnContainer = document.createElement('div');
+        btnContainer.id = 'btnContainer';
+        btnContainer.classList.add("horizontalList");
+        rootDiv.appendChild(btnContainer);
+        document.body.appendChild(rootDiv);
+    }
+
+    function initListContainer() {
         var companyNamesContainer = document.createElement('div');
+        companyNamesContainer.id = 'companyNamesContainer';
+        companyNamesContainer.classList.add("verticalList");
         chicagoStartups.forEach( function(chicagoStartup, index) {
             var childDiv = document.createElement('div');
             var text = document.createTextNode(index.toString().concat(' .) ').concat(chicagoStartup));
             childDiv.appendChild(text);
             companyNamesContainer.appendChild(childDiv);
         });
-        rootDiv.appendChild(companyNamesContainer);
-        document.body.appendChild(rootDiv);
+        document.getElementById('rootContainer').appendChild(companyNamesContainer);
     }
+
+    function initToggleDisplay() {
+        // add toggleDisplay button
+        var toggleBtnContainer = document.createElement('div');
+        var toggleDisplayButton = document.createElement('button');
+        var toggleDisplayButtonText = document.createTextNode('Toggle Display');
+        toggleDisplayButton.onclick = toggleDisplay;
+        toggleDisplayButton.appendChild(toggleDisplayButtonText);
+        toggleBtnContainer.appendChild(toggleDisplayButton);
+        document.getElementById('btnContainer').appendChild(toggleBtnContainer);
+    }
+
+    function initReverse() {
+        var reverseContainer = document.createElement('div');
+        reverseContainer.id = 'reverseContainer';
+        reverseContainer.classList.add("verticalList");
+        var reverseBtn = document.createElement('button');
+        var btnText = document.createTextNode('Reverse');
+        reverseBtn.onclick = renderReversedElements;
+        reverseBtn.appendChild(btnText);
+        var reverseButtonContainer = document.createElement('div');
+        reverseButtonContainer.appendChild(reverseBtn);    
+        document.getElementById('btnContainer').appendChild(reverseButtonContainer);
+        document.getElementById('rootContainer').appendChild(reverseContainer);
+    }
+
+    function initCleanCount() {
+        var cleanContainer = document.createElement('div');
+        cleanContainer.id = 'cleanContainer';
+        cleanContainer.classList.add("verticalList");
+        var cleanCountButton = document.createElement('button');
+        var cleanCountBtnText = document.createTextNode('Clean and Count Words');
+        cleanCountButton.onclick = cleanAndCountCharacters;
+        cleanCountButton.appendChild(cleanCountBtnText);
+        var cleanCountBtnContainer = document.createElement('div');
+        cleanCountBtnContainer.appendChild(cleanCountButton);
+        document.getElementById('btnContainer').appendChild(cleanCountBtnContainer);
+        document.getElementById('rootContainer').appendChild(cleanContainer);
+    }
+
+
+
 
     function renderReversedElements() {
         var reverseContainer = document.getElementById('reverseContainer');
@@ -157,18 +228,6 @@
 
     }
     
-    function initReverse() {
-        var reverseContainer = document.createElement('div');
-        reverseContainer.id = 'reverseContainer';
-        var reverseBtn = document.createElement('button');
-        var btnText = document.createTextNode('Reverse');
-        reverseBtn.onclick = renderReversedElements;
-        reverseBtn.appendChild(btnText);
-        var reverseButtonContainer = document.createElement('div');
-        reverseButtonContainer.appendChild(reverseBtn);    
-        document.getElementById('rootContainer').appendChild(reverseButtonContainer);
-        document.getElementById('rootContainer').appendChild(reverseContainer);
-    }
 
     function toggleDisplay() {
         /*
@@ -187,9 +246,15 @@
         */
     }
     
+
+
+
     function run() {
         initDocument();
+        initToggleDisplay();
+        initListContainer();        
         initReverse();
+        initCleanCount();
     }
     run();
     
