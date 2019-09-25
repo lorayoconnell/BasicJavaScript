@@ -165,7 +165,6 @@
 
 
 
-
     function renderReversedElements() {
         var reverseContainer = document.getElementById('reverseContainer');
         var reversedChicagoStartups = [];
@@ -272,6 +271,36 @@
 
             3.  
         */
+
+        var btnContainer = document.getElementById('btnContainer');
+
+        var companyNamesContainer = document.getElementById('companyNamesContainer');
+        var cleanContainer = document.getElementById('cleanContainer');
+        var reverseContainer = document.getElementById('reverseContainer');
+
+        if (btnContainer.classList.contains("horizontalList")) {
+            btnContainer.classList.remove("horizontalList");
+            btnContainer.classList.add("verticalList");
+            companyNamesContainer.classList.remove("verticalList");
+            companyNamesContainer.classList.add("horizontalList");
+            reverseContainer.classList.remove("verticalList");
+            reverseContainer.classList.add("horizontalList");
+            cleanContainer.classList.remove("verticalList");
+            cleanContainer.classList.add("horizontalList");
+        }
+
+        else if (btnContainer.classList.contains("verticalList")) {
+            btnContainer.classList.remove("verticalList");
+            btnContainer.classList.add("horizontalList");
+            companyNamesContainer.classList.remove("horizontalList");
+            companyNamesContainer.classList.add("verticalList");
+            reverseContainer.classList.remove("horizontalList");
+            reverseContainer.classList.add("verticalList");
+            cleanContainer.classList.remove("horizontalList");
+            cleanContainer.classList.add("verticalList");
+        }
+
+
     }
     
 
