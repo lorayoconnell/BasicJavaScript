@@ -1,3 +1,5 @@
+<!-- https://github.com/lorayoconnell/BasicJavaScript -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,48 +19,16 @@
         font-size:22px;
         min-width:170px;
         padding:0.25em 0.5em;
-        margin:0.25em;
+        margin:0.15em;
     }
     button:hover {
         cursor: pointer;
     }
 
-    .root-container {
-        position: relative;
-    }
-
-    .root-container .header {
-        position: relative;
-    }
-
-    .root-container .main {
-        position: relative;
-    }
-
-    .root-container .footer {
-        position: relative;
-    }
-
-    .startups-container {
-        background-color: gray;
-    }
-
-    .red {
-        background-image: red;
-    }
-
-    .blue {
-        background-image: blue;
-    }
-
-    .gold {
-        background-image: gold;
-    }
-
     #rootContainer{
         border:1px solid #555;
         border-radius: 8px;
-        padding:1em;
+        padding:.6em;
     }
 
     #btnContainer{padding:0.5em;}
@@ -75,10 +45,12 @@
         flex-direction: row;
     }
 
-    .horizontalBtn {flex-direction: row;
+    .horizontalBtn {
+        flex-direction: row;
         width:100%;
     }
-    .verticalBtn {flex-direction: column;
+    .verticalBtn {
+        flex-direction: column;
         width:20%;
     } 
 
@@ -89,6 +61,7 @@
     .verticalListContainer > div {
         flex-wrap:wrap;
         margin:0.4em;
+        max-width:260px;
     }
     .verticalListContainer > div > div {
         width:100%;
@@ -107,6 +80,23 @@
     }
 
 
+    /* when lists are horizontal, 
+        @ width:; 921px, list items will not fit on one
+            line (particularly 'Pritzker...') 
+        lists begin to overlap buttons @ width: 800px */
+
+    /* also change css @ width: 650px because buttons
+        no longer fit inside rootContainer */
+
+    @media screen and (max-width: 800px) {
+        body{padding:1em;}
+        #rootContainer{padding:0.3em;}
+        button {font-size:18px;min-width:138px;}
+    }
+
+    @media screen and (max-width: 650px) {
+        button {min-width: 108px;}
+    }
 
 </style>
 
@@ -116,7 +106,7 @@
     <h1>Javascript Basics</h1>
 
 <script>
-    var colors = ['red', 'blue', 'gold'];
+
     var chicagoStartups = [
         '  Interior   Define  ',
         'Classkick',
@@ -386,7 +376,7 @@
                             the buttons using bootstraps built in button styling classes.
 
                             Additionally, can earn extra credit by using an object to count the number of occurrences 
-                            of each character accross all startup names and style and display the results as part of the
+                            of each character across all startup names and style and display the results as part of the
                             "cleanAndCountCharacters" function.
 
                             If you are having trouble getting started, I would spend a lot of time reviewing the source code provided in the reverse example.
@@ -402,7 +392,7 @@
                         `);
         }
         
-    });
+    })();   // invoked anonymous function
 
 </script>
 </body>
